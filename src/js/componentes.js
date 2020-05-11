@@ -1,14 +1,48 @@
-import '../css/componentes.css';
+import { Todo } from '../classes';
+import { todoList } from '../index'
+//Referencias
+
+const divTodoList=document.querySelector('.todo-list')
+const txtInput= document.querySelector('.new-todo')
 
 
 
-export const saludar = ( nombre ) => {
+export const crearTodoHtml = (todo)=>{
+    const htmlTodo= `
+    <li class="${ (todo.completado) ? 'completed' : ''}" data-id="${ todo.id}">
+        <div class="view">
+            <input class="toggle" type="checkbox"${ (todo.completado) ? 'checked': ''}>
+            <label>${ todo.tarea }</label>
+            <button class="destroy"></button>
+        </div>
+        <input class="edit" value="Create a TodoMVC template">
+    </li> 
+    `;
 
-    console.log('Creando etiqueta h1, en el HTML!');
+    const div = document.createElement('div');
 
-    const h1 = document.createElement('h1');
-    h1.innerText = `Hola, ${ nombre }`;
+    div.innerHTML=htmlTodo;
 
-    document.body.append( h1 );
+    divTodoList.append(div.firstElementChild);
+
+    return div.firstElementChild
+
 
 }
+
+
+//eventos
+
+
+txtInput.addEventListener('keyup',(event)=>{
+    //console.log(event);
+    //console.log(txtInput.value.length);
+    if(window.event.keyCode===13 && txtInput.value.length>0 ){
+        //console.log(txtInput.value);
+        const nuevoTodo= new Todo( txtInput.value)
+        todoList.nuevoTodo(nuevoTodo);
+
+        crearTodoHtml( nuevoTodo);
+        txtInput.value=''
+    }
+})

@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.config.js",
-    "start": "webpack-dev-server --open --port=8080"
+    "start": "webpack-dev-server --open"
   },
-  "author": "Fernando Herrera",
+  "author": "SpyroCode",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.8.3",
