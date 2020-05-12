@@ -9,14 +9,20 @@ import { crearTodoHtml } from './js/componentes';
 
  export const todoList=new TodoList();
 
-const tarea =new Todo('Aprender JavaScript!!!');
+// const tarea =new Todo('Aprender JavaScript!!!');
 
-//tarea.completado=true
+// //tarea.completado=true
 
-todoList.nuevoTodo(tarea)
+// todoList.nuevoTodo(tarea)
 
 
 
-console.log(todoList);
+// console.log(todoList);
 
-crearTodoHtml( tarea )
+//todoList.todos.forEach(todo => crearTodoHtml(todo));
+todoList.todos.forEach(crearTodoHtml);
+
+
+// crearTodoHtml( tarea )
+
+

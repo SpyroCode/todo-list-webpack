@@ -4,6 +4,10 @@ import { todoList } from '../index'
 
 const divTodoList=document.querySelector('.todo-list')
 const txtInput= document.querySelector('.new-todo')
+const btnBorrar= document.querySelector('.clear-completed')
+const ulFiltors = document.querySelector('.filters')
+const anchorFiltros=document.querySelectorAll('.filtro')
+
 
 
 
@@ -46,3 +50,70 @@ txtInput.addEventListener('keyup',(event)=>{
         txtInput.value=''
     }
 })
+
+divTodoList.addEventListener('click',(event)=>{
+
+    
+    const nombreElemento=(event.target.localName);
+    const todoElement=(event.target.parentElement.parentElement);//referencia html
+    const todoId=todoElement.getAttribute('data-id')
+    if(nombreElemento.includes('input')){//click en input
+        todoList.marcarCompletado(todoId)
+        todoElement.classList.toggle('completed') //cambia la clase con toggle
+    }else if (nombreElemento.includes('button')){
+        todoList.eliminarTodo( todoId );
+        divTodoList.removeChild(todoElement) //remover el que coincida con todoElement
+    }
+    //console.log(todoList);
+
+})
+
+btnBorrar.addEventListener('click',()=>{
+
+    todoList.eliminarComletado();
+    for(let i=divTodoList.children.length-1; i>=0;i--){
+
+        const elemento = divTodoList.children[i];
+        if(elemento.classList.contains('completed')){
+            divTodoList.removeChild(elemento)
+        }
+
+    }
+
+})
+
+ulFiltors.addEventListener('click',()=>{
+    
+
+    const filtro =event.target.text
+    if(!filtro) return;
+
+    anchorFiltros.forEach(elem=>elem.classList.remove('selected') );
+    event.target.classList.add('selected')
+    for (const elemento of divTodoList.children){
+
+        elemento.classList.remove('hidden');
+        const completado= elemento.classList.contains('completed')
+        switch( filtro){
+
+            case 'Pendientes':
+                if(completado){
+                    elemento.classList.add('hidden');
+                }
+            break; 
+            case 'Completados':
+                if(!completado){
+                    elemento.classList.add('hidden');
+                }
+            break; 
+                
+
+
+        }
+
+    }
+
+
+
+})
+
